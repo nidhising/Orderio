@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  # ── PostgreSQL Database ──────────────────────────────────────────────────
+  db:
+    image: postgres:15-alpine
+    container_name: orderio_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # ── FastAPI Backend ──────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: orderio_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # ── React Frontend ───────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+    container_name: orderio_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+    name: orderio_postgres_data
