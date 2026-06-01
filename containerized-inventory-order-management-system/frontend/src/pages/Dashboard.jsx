@@ -218,7 +218,7 @@ export default function Dashboard() {
                           <tr key={o.id}>
                             <td className="font-medium">#{recentOrders.length - i}</td>
                             <td>{o.customer?.full_name}</td>
-                            <td>${parseFloat(o.total_amount).toFixed(2)}</td>
+                            <td>₹{parseFloat(o.total_amount).toFixed(2)}</td>
                             <td><span className={`status-badge ${statusClass(o.status)}`}>{o.status}</span></td>
                           </tr>
                         ))}

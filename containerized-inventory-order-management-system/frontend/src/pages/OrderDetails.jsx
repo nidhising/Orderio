@@ -99,7 +99,7 @@ export default function OrderDetails() {
             </div>
             <div className="detail-row">
               <span className="detail-label">Total Amount</span>
-              <span className="detail-value total-amount">${parseFloat(order.total_amount).toFixed(2)}</span>
+              <span className="detail-value total-amount">₹{parseFloat(order.total_amount).toFixed(2)}</span>
             </div>
           </div>
         </div>
@@ -145,16 +145,16 @@ export default function OrderDetails() {
                   <td className="text-muted">{i + 1}</td>
                   <td className="font-medium">{item.product?.name}</td>
                   <td><span className="sku-badge">{item.product?.sku}</span></td>
-                  <td>${parseFloat(item.unit_price).toFixed(2)}</td>
+                  <td>₹{parseFloat(item.unit_price).toFixed(2)}</td>
                   <td>{item.quantity}</td>
-                  <td className="font-medium">${parseFloat(item.line_total).toFixed(2)}</td>
+                  <td className="font-medium">₹{parseFloat(item.line_total).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr>
                 <td colSpan="5" className="total-label">Order Total</td>
-                <td className="total-amount">${parseFloat(order.total_amount).toFixed(2)}</td>
+                <td className="total-amount">₹{parseFloat(order.total_amount).toFixed(2)}</td>
               </tr>
             </tfoot>
           </table>

@@ -145,7 +145,7 @@ export default function Products() {
                 {validationErrors.sku && <span className="field-error">{validationErrors.sku}</span>}
               </div>
               <div className="form-group">
-                <label className="form-label" htmlFor="product-price">Price ($) *</label>
+                <label className="form-label" htmlFor="product-price">Price (₹) *</label>
                 <input
                   id="product-price"
                   className={`form-input ${validationErrors.price ? 'input-error' : ''}`}
@@ -206,7 +206,7 @@ export default function Products() {
                 <tr key={p.id}>
                   <td className="font-medium">{p.name}</td>
                   <td><span className="sku-badge">{p.sku}</span></td>
-                  <td className="font-medium">${parseFloat(p.price).toFixed(2)}</td>
+                  <td className="font-medium">₹{parseFloat(p.price).toFixed(2)}</td>
                   <td>
                     <span className={
                       p.quantity_in_stock === 0 ? 'stock-badge out'

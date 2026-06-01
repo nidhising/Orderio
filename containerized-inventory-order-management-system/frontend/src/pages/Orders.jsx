@@ -162,7 +162,7 @@ export default function Orders() {
                             <option value="">— Select product —</option>
                             {products.map((p) => (
                               <option key={p.id} value={p.id}>
-                                {p.name} (Stock: {p.quantity_in_stock}) — ${parseFloat(p.price).toFixed(2)}
+                                {p.name} (Stock: {p.quantity_in_stock}) — ₹{parseFloat(p.price).toFixed(2)}
                               </option>
                             ))}
                           </select>
@@ -181,7 +181,7 @@ export default function Orders() {
                         </div>
                         {selectedProduct && (
                           <div className="item-subtotal">
-                            ${(parseFloat(selectedProduct.price) * parseInt(item.quantity || 0)).toFixed(2)}
+                            ₹{(parseFloat(selectedProduct.price) * parseInt(item.quantity || 0)).toFixed(2)}
                           </div>
                         )}
                         {orderItems.length > 1 && (
@@ -198,7 +198,7 @@ export default function Orders() {
             {/* Estimated total */}
             <div className="order-total-preview">
               Estimated Total: <strong>
-                ${orderItems.reduce((sum, item) => {
+                ₹{orderItems.reduce((sum, item) => {
                   const p = products.find((p) => p.id === parseInt(item.product_id));
                   return sum + (p ? parseFloat(p.price) * parseInt(item.quantity || 0) : 0);
                 }, 0).toFixed(2)}
@@ -241,7 +241,7 @@ export default function Orders() {
                   {/* Sequential display number: newest = #1 (list is sorted desc by date) */}
                   <td className="font-medium">#{orders.length - index}</td>
                   <td>{o.customer?.full_name}</td>
-                  <td className="font-medium">${parseFloat(o.total_amount).toFixed(2)}</td>
+                  <td className="font-medium">₹{parseFloat(o.total_amount).toFixed(2)}</td>
                   <td>
                     <span className={`status-badge ${statusClass(o.status)}`}>{o.status}</span>
                   </td>
