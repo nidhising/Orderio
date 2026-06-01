@@ -1,7 +1,4 @@
-version: "3.8"
-
 services:
-  # ── PostgreSQL Database ──────────────────────────────────────────────────
   db:
     image: postgres:15-alpine
     container_name: orderio_db
@@ -21,7 +18,6 @@ services:
       retries: 10
       start_period: 10s
 
-  # ── FastAPI Backend ──────────────────────────────────────────────────────
   backend:
     build:
       context: ./backend
@@ -36,7 +32,6 @@ services:
       db:
         condition: service_healthy
 
-  # ── React Frontend ───────────────────────────────────────────────────────
   frontend:
     build:
       context: ./frontend
